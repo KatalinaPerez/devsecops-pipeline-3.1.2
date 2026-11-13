@@ -21,10 +21,12 @@ pipeline {
             steps {
                 echo '=== Etapa 3: Despliegue automatizado de la aplicación ==='
                 echo 'Desplegando la app en contenedor Docker de pruebas...'
-                sh 'docker build -t app-devsecops:v1 .'
-                sh 'docker stop app-test || true'
-                sh 'docker rm app-test || true'
-                sh 'docker run -d -p 5000:5000 --name app-test app-devsecops:v1'
+                dir('proyecto-devsecops')
+                    sh 'docker build -t app-devsecops:v1 .'
+                    sh 'docker stop app-test || true'
+                    sh 'docker rm app-test || true'
+                    sh 'docker run -d -p 5000:5000 --name app-test app-devsecops:v1'
+                }
             }
         }
     }
